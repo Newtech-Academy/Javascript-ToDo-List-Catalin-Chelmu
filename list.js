@@ -1,11 +1,21 @@
 const curList = [];
 const output = document.querySelector(".output");
+
+function createMyElement(parent, elType, classAdd) {
+  const ele = document.createElement(elType);
+  parent.append(ele);
+  ele.classList.add(classAdd);
+  return ele;
+}
+
 const myInput = createMyElement(output, "input", "main"); //createMyElement(parent:"output", elType:"input", classAdd:"main");
 myInput.setAttribute("type", "text");
 const myBtn = createMyElement(output, "button", "btn");
 myBtn.textContent = "Add New task";
 const myList = createMyElement(output, "ul", "myList");
+
 let getData = localStorage.getItem("curList");
+
 window.addEventListener("DOMContentLoaded", (e) => {
   if (getData) {
     const tempArr = JSON.parse(getData);
@@ -40,7 +50,6 @@ function addNewTask(taskName) {
   span2.textContent = "Edit";
   const span3 = createMyElement(div, "span", "del");
   span3.textContent = "Delete";
-
   const span4 = createMyElement(div, "span", "status");
   span4.textContent = "Status";
 
@@ -63,19 +72,13 @@ function addNewTask(taskName) {
   });
 
   span4.addEventListener("click", (e) => {
-    span1.style.backgroundColor = "brown";
+    span1.style.backgroundColor = "green"; // text decoration line-through
     span1.style.color = "white";
-    span4.textContent = "Finalizat";
+    span4.textContent = "Complet";
     console.log("status");
     updater();
   });
 
   updater();
   return li;
-}
-function createMyElement(parent, elType, classAdd) {
-  const ele = document.createElement(elType);
-  parent.append(ele);
-  ele.classList.add(classAdd);
-  return ele;
 }
